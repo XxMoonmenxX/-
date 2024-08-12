@@ -20,10 +20,16 @@ def procent_govna():
 
 root = Tk()
 root.title("Рассчет погрешности")
-root.geometry("240x360")
+root.geometry("240x480")
+
+lbl = Label(root, text="Класс точности")
+lbl.pack(anchor=NW, padx=6, pady=6)
 
 entry = ttk.Entry()
 entry.pack(anchor=NW, padx=6, pady=6)
+
+lbl1 = Label(root, text="Диапазон")
+lbl1.pack(anchor=NW, padx=6, pady=6)
 
 entry2 = ttk.Entry()
 entry2.pack(anchor=NW, padx=6, pady=12)
@@ -34,8 +40,14 @@ btn.pack(anchor=NW, padx=6, pady=6)
 label = ttk.Label()
 label.pack(anchor=NW, padx=6, pady=6)
 
+lbl2 = Label(root, text="Оцифрованная точка")
+lbl2.pack(anchor=NW, padx=6, pady=6)
+
 entry3 = ttk.Entry()
 entry3.pack(anchor=NW, padx=6, pady=6)
+
+lbl3 = Label(root, text="Показания эталона")
+lbl3.pack(anchor=NW, padx=6, pady=6)
 
 entry4 = ttk.Entry()
 entry4.pack(anchor=NW, padx=6, pady=6)
