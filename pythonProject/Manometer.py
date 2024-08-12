@@ -3,7 +3,7 @@ from tkinter import ttk
 
 import sqlite3 as sql
 
-con = sql.connect('test.db')
+con = sql.connect('test.txt')
 cur = con.cursor()
 soc = cur.fetchall()
 
@@ -24,7 +24,7 @@ def procent_govna ():
 
 root = Tk ()
 root.title("Рассчет погрешности")
-root.geometry("1280x720")
+root.geometry("640x1280")
 
 lbl = Label(root, text="Класс точности")
 lbl.pack(anchor=NW, padx=6, pady=6)
@@ -86,9 +86,6 @@ lbl5.pack(anchor=NW, padx=6, pady=6)
 entry6 = ttk.Entry()
 entry6.pack(anchor=NW, padx=6, pady=6)
 
-
-
-
 def centrtxt():
     with con:
         cur.execute("CREATE TABLE IF NOT EXISTS `test` (`name` STRING, `number` STRING, `kt` STRING, `diap` STRING)")
@@ -105,7 +102,7 @@ def centrtxt():
             cur.close()
 
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
-centrtext.pack(anchor=CENTER, padx=6, pady=6)
+centrtext.pack(anchor=NW, padx=6, pady=6)
 
 def centrtxt2():
 
@@ -114,10 +111,7 @@ def centrtxt2():
     for row in res:
         print(row)
 
-
 centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
-centrtext2.pack(anchor=CENTER, padx=6, pady=6)
-
-
+centrtext2.pack(anchor=NW, padx=6, pady=6)
 
 root.mainloop()
