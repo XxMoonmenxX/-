@@ -1,7 +1,11 @@
 from tkinter import *
 from tkinter import ttk
 
+import sqlite3 as sql
 
+con = sql.connect('test.db')
+cur = con.cursor()
+soc = cur.fetchall()
 
 def absolutepog():
     s = float(entry.get()) * float(entry2.get()) / 100
@@ -20,7 +24,7 @@ def procent_govna():
 
 root = Tk()
 root.title("Рассчет погрешности")
-root.geometry("240x480")
+root.geometry("1280x720")
 
 lbl = Label(root, text="Класс точности")
 lbl.pack(anchor=NW, padx=6, pady=6)
@@ -63,5 +67,36 @@ btn.pack(anchor=NW, padx=6, pady=6)
 
 label2 = ttk.Label()
 label2.pack(anchor=NW, padx=6, pady=6)
+
+lbl4 = Label(root, text="Название манометра")
+lbl4.pack(anchor=CENTER, padx=6, pady=6)
+
+entry5 = ttk.Entry()
+entry5.pack(anchor=CENTER, padx=6, pady=6)
+
+lbl5 = Label(root, text="Номер манометра")
+lbl5.pack(anchor=CENTER, padx=6, pady=6)
+
+entry6 = ttk.Entry()
+entry6.pack(anchor=CENTER, padx=6, pady=6)
+
+
+
+
+def centrtxt():
+    cur.execute("CREATE TABLE IF NOT EXISTS `test` (`name` STRING, `number` STRING, `kt` STRING, `diap` STRING)")
+    con.commit()
+
+centrtext = ttk.Button(text="Внести данные", command=centrtxt)
+centrtext.pack(anchor=CENTER, padx=6, pady=6)
+
+def centrtxt2():
+    cur.execute("SELECT * FROM `test`")
+    print(str(entry))
+
+centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
+centrtext2.pack(anchor=CENTER, padx=6, pady=6)
+
+
 
 root.mainloop()
