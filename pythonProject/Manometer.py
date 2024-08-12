@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import pandas as pd
 
 import sqlite3 as sql
 
@@ -94,12 +95,15 @@ def centrtxt():
         kt = str(entry.get())
         diap = str(entry2.get() + entry22.get())
         cur.execute(f"INSERT INTO `test` VALUES ('{name}', '{number}', '{kt}', '{diap}' )")
+        df = pd.DataFrame([{'Название':[name], 'Номер':[number],'Класс точности':[kt],'Диапазон':[diap]}])
+        df.to_excel('Журнал.xlsx')
         rows = cur.fetchall()
         for row in rows:
             print(row)
             print('Данные внесены')
             con.commit()
             cur.close()
+
 
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
 centrtext.pack(anchor=NW, padx=6, pady=6)
@@ -113,5 +117,7 @@ def centrtxt2():
 
 centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
 centrtext2.pack(anchor=NW, padx=6, pady=6)
+
+
 
 root.mainloop()
