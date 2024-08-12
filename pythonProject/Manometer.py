@@ -75,38 +75,45 @@ label2 = ttk.Label()
 label2.pack(anchor=NW, padx=6, pady=6)
 
 lbl4 = Label(root, text="Название манометра")
-lbl4.pack(anchor=CENTER, padx=6, pady=6)
+lbl4.pack(anchor=NW, padx=6, pady=6)
 
 entry5 = ttk.Entry()
-entry5.pack(anchor=CENTER, padx=6, pady=6)
+entry5.pack(anchor=NW, padx=6, pady=6)
 
 lbl5 = Label(root, text="Номер манометра")
-lbl5.pack(anchor=CENTER, padx=6, pady=6)
+lbl5.pack(anchor=NW, padx=6, pady=6)
 
 entry6 = ttk.Entry()
-entry6.pack(anchor=CENTER, padx=6, pady=6)
+entry6.pack(anchor=NW, padx=6, pady=6)
 
 
 
 
 def centrtxt():
-
-    cur.execute("CREATE TABLE IF NOT EXISTS `test` (`name` STRING, `number` STRING, `kt` STRING, `diap` STRING)")
-    con.commit()
-    print('Внесено')
+    with con:
+        cur.execute("CREATE TABLE IF NOT EXISTS `test` (`name` STRING, `number` STRING, `kt` STRING, `diap` STRING)")
+        name = entry5.get()
+        number = str(entry6.get())
+        kt = str(entry.get())
+        diap = str(entry2.get() + entry22.get())
+        cur.execute(f"INSERT INTO `test` VALUES ('{name}', '{number}', '{kt}', '{diap}' )")
+        rows = cur.fetchall()
+        for row in rows:
+            print(row)
+            print('Данные внесены')
+            con.commit()
+            cur.close()
 
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
 centrtext.pack(anchor=CENTER, padx=6, pady=6)
 
 def centrtxt2():
-    name = str(entry5.get())
-    number = str(entry6.get())
-    kt = str(entry.get())
-    diap = str(entry2.get() + entry22.get())
+
     cur.execute("SELECT * FROM `test`")
-    #records = cur.fetchall()
-    print("Название - " + name + ' Номер - ' + number + ' Класс точности - ' + kt + ' Диапазон - ' + diap )
-    print("Вывод каждой строки")
+    res = cur.fetchall()
+    for row in res:
+        print(row)
+
 
 centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
 centrtext2.pack(anchor=CENTER, padx=6, pady=6)
