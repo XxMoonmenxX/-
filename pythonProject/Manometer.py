@@ -89,6 +89,7 @@ entry6.pack(anchor=NW, padx=6, pady=6)
 
 def centrtxt():
     with con:
+        print('Данные внесены')
         cur.execute("CREATE TABLE IF NOT EXISTS `test` (`name` STRING, `number` STRING, `kt` STRING, `diap` STRING)")
         name = entry5.get()
         number = str(entry6.get())
@@ -100,7 +101,6 @@ def centrtxt():
         rows = cur.fetchall()
         for row in rows:
             print(row)
-            print('Данные внесены')
             con.commit()
             cur.close()
 
