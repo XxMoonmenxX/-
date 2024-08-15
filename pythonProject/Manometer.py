@@ -16,18 +16,25 @@ def absolutepog():
     label["text"] = s
 
 
-def ne_znaiu():
-    hui = str(float(entry3.get()) - float((entry4.get())))
-    hui = str(round(float(hui), 5))
-    label1["text"] = hui
+#def ne_znaiu():
+
 
 
 def procent_govna():
+    #ne_znaiu()
+    hui = str(float(entry3.get()) - float((entry4.get())))
+    hui = str(round(float(hui), 5))
     hui = str(float(entry3.get()) - float((entry4.get())))
     hui = str(round(float(hui), 5))
     loh = str(float(hui) / float(entry2.get()) * 100)
-    loh = (round(float(loh), 2))
+    loh = (round(float(loh), 3))
     label2["text"] = loh
+
+    huii = str(float(entryl3.get()) - float((entryl4.get())))
+    huii = str(round(float(huii), 5))
+    lohh = str(float(huii) / float(entry2.get()) * 100)
+    lohh = (round(float(lohh), 3))
+    labell2["text"] = lohh
 
 
 root = Tk()
@@ -99,28 +106,39 @@ label = ttk.Label()
 label.pack(anchor=NW, padx=6, pady=6)
 
 lbl2 = Label(root, text="Оцифрованная точка")
-lbl2.pack(anchor=NW, padx=6, pady=6)
+lbl2.pack(anchor=CENTER)
 
 entry3 = ttk.Entry()
-entry3.pack(anchor=NW, padx=6, pady=6)
+entry3.pack(anchor=CENTER)
 
 lbl3 = Label(root, text="Показания эталона")
-lbl3.pack(anchor=NW, padx=6, pady=6)
+lbl3.pack(anchor=CENTER)
 
 entry4 = ttk.Entry()
-entry4.pack(anchor=NW, padx=6, pady=6)
+entry4.pack(anchor=CENTER)
 
-btn = ttk.Button(text="Рассчет разности шага", command=ne_znaiu)
-btn.pack(anchor=NW, padx=6, pady=6)
+lbll2 = Label(root, text="Оцифрованная точка 2")
+lbll2.pack(anchor=CENTER)
 
-label1 = ttk.Label()
-label1.pack(anchor=NW, padx=6, pady=6)
+entryl3 = ttk.Entry()
+entryl3.pack(anchor=CENTER)
+
+lbll3 = Label(root, text="Показания эталона 2")
+lbll3.pack(anchor=CENTER)
+
+entryl4 = ttk.Entry()
+entryl4.pack(anchor=CENTER)
+
+#btn = ttk.Button(text="Рассчет разности шага", command=ne_znaiu)
+#btn.pack(anchor=W, padx=6, pady=6)
 
 btn = ttk.Button(text="Рассчет % погрешности шага", command=procent_govna)
-btn.pack(anchor=NW, padx=6, pady=6)
+btn.pack(anchor=W, padx=6, pady=6)
 
 label2 = ttk.Label()
-label2.pack(anchor=NW, padx=6, pady=6)
+label2.pack(anchor=W, padx=6, pady=6)
+labell2 = ttk.Label()
+labell2.pack(anchor=NW, padx=6, pady=6)
 
 lbl4 = Label(root, text="Название манометра")
 lbl4.pack(anchor=NW, padx=6, pady=6)
