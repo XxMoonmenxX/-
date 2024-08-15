@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from PIL import ImageTk
 
 import pandas as pd
 
@@ -26,7 +27,18 @@ def procent_govna ():
 
 root = Tk ()
 root.title("Рассчет погрешности")
-root.geometry("640x1280")
+root.geometry("768x1280")
+bg = PhotoImage(file = "logo.png")
+img = Label( root, image = bg)
+img.place(x = 0, y = 0)
+
+prikol1 = Menu(root)
+root.config(menu = prikol1)
+
+prikol2 = Menu(prikol1, tearoff=0)
+prikol2.add_command(label = 'Закрой')
+
+prikol1.add_cascade(label = 'Посмотри', menu = prikol2 )
 
 lbl = Label(root, text="Класс точности")
 lbl.pack(anchor=NW, padx=6, pady=6)
