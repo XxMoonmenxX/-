@@ -33,14 +33,39 @@ def procent_govna():
 root = Tk()
 root.title("Рассчет погрешности")
 root.geometry("768x1280")
+root.resizable(width=False, height=False)
 bg = PhotoImage(file="logo.png")
 img = Label(root, image=bg)
 img.place(x=0, y=0)
 current_date = date.today()
+"""
+tab_control = ttk.Notebook(root)
 
+vkladka1 = ttk.Frame(tab_control)
+vkladka2 = ttk.Frame(tab_control)
 
+tab_control.add(vkladka1, text='1')
 
+bg = PhotoImage(file="logo.png")
 
+img = Label(root, image=bg)
+img.place(x=0, y=0)
+
+tab_control.add(vkladka2, text='2')
+
+bg = PhotoImage(file="logo.png")
+
+img = Label(root, image=bg)
+img.place(x=0, y=0)
+
+lll = Label(vkladka1)
+lll.grid(column=0, row=3)
+
+lll1 = Label(vkladka2)
+lll1.grid(column=1, row=4)
+
+tab_control.pack(expand=1, fill='both')
+"""
 prikol1 = Menu(root)
 root.config(menu=prikol1)
 
@@ -139,24 +164,24 @@ def centrtxt():
         ogm.append([current_date, name, number, kt, diap, k])
         omg.save(xl)
         omg.close()
-        rows = cur.fetchall()
-        # for row in rows:
-        # print(row)
-        # con.commit()
-        # cur.close()
+        """rows = cur.fetchall()
+         for row in rows:
+         print(row)
+         con.commit()
+         cur.close()"""
 
 
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
 centrtext.pack(anchor=NW, padx=6, pady=6)
 
-# def centrtxt2():
-# cur.execute("SELECT * FROM `test`")
-# res = cur.fetchall()
-# for row in res:
-# print(row)
+"""def centrtxt2():
+cur.execute("SELECT * FROM `test`")
+res = cur.fetchall()
+for row in res:
+print(row)"""
 
 
-# centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
-# centrtext2.pack(anchor=NW, padx=6, pady=6)
+"""centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
+centrtext2.pack(anchor=NW, padx=6, pady=6)"""
 
 root.mainloop()
