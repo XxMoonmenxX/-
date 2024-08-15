@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-from PIL import ImageTk
-
-import pandas as pd
+from openpyxl import load_workbook
 
 import sqlite3 as sql
 
@@ -10,35 +8,40 @@ con = sql.connect('test.txt')
 cur = con.cursor()
 soc = cur.fetchall()
 
-def absolutepog ():
+
+def absolutepog():
     s = float(entry.get()) * float(entry2.get()) / 100
     label["text"] = s
-def ne_znaiu ():
+
+
+def ne_znaiu():
     hui = str(float(entry3.get()) - float((entry4.get())))
     hui = str(round(float(hui), 5))
-    label1 ["text"] = hui
+    label1["text"] = hui
 
-def procent_govna ():
+
+def procent_govna():
     hui = str(float(entry3.get()) - float((entry4.get())))
     hui = str(round(float(hui), 5))
     loh = str(float(hui) / float(entry2.get()) * 100)
     loh = (round(float(loh), 2))
-    label2 ["text"] = loh
+    label2["text"] = loh
 
-root = Tk ()
+
+root = Tk()
 root.title("Рассчет погрешности")
 root.geometry("768x1280")
-bg = PhotoImage(file = "logo.png")
-img = Label( root, image = bg)
-img.place(x = 0, y = 0)
+bg = PhotoImage(file="logo.png")
+img = Label(root, image=bg)
+img.place(x=0, y=0)
 
 prikol1 = Menu(root)
-root.config(menu = prikol1)
+root.config(menu=prikol1)
 
 prikol2 = Menu(prikol1, tearoff=0)
-prikol2.add_command(label = 'Закрой')
+prikol2.add_command(label='Закрой')
 
-prikol1.add_cascade(label = 'Посмотри', menu = prikol2 )
+prikol1.add_cascade(label='Посмотри', menu=prikol2)
 
 lbl = Label(root, text="Класс точности")
 lbl.pack(anchor=NW, padx=6, pady=6)
@@ -100,6 +103,7 @@ lbl5.pack(anchor=NW, padx=6, pady=6)
 entry6 = ttk.Entry()
 entry6.pack(anchor=NW, padx=6, pady=6)
 
+
 def centrtxt():
     with con:
         print('Данные внесены')
@@ -109,9 +113,12 @@ def centrtxt():
         kt = str(entry.get())
         diap = str(entry2.get() + entry22.get())
         cur.execute(f"INSERT INTO `test` VALUES ('{name}', '{number}', '{kt}', '{diap}' )")
-        df = pd.DataFrame([{'Название':name, 'Номер':number,'Класс точности':kt,'Диапазон':diap}])
-        df.loc[ len(df.index )] = [name,number,kt,diap]
-        df.to_excel('Журнал.xlsx')
+        xl = 'Журнал.xlsx'
+        omg = load_workbook(xl)
+        ogm = omg['Sheet1']
+        ogm.append([name, number, kt, diap])
+        omg.save(xl)
+        omg.close()
         rows = cur.fetchall()
         for row in rows:
             print(row)
@@ -122,16 +129,15 @@ def centrtxt():
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
 centrtext.pack(anchor=NW, padx=6, pady=6)
 
-def centrtxt2():
 
+def centrtxt2():
     cur.execute("SELECT * FROM `test`")
     res = cur.fetchall()
     for row in res:
         print(row)
 
+
 centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
 centrtext2.pack(anchor=NW, padx=6, pady=6)
-
-
 
 root.mainloop()
