@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import ttk
 from openpyxl import load_workbook
 
+
+
 from datetime import date
 
 import sqlite3 as sql
@@ -14,11 +16,6 @@ soc = cur.fetchall()
 def absolutepog():
     s = float(entry.get()) * float(entry2.get()) / 100
     label["text"] = s
-
-
-#def ne_znaiu():
-
-
 
 def procent_govna():
     #ne_znaiu()
@@ -36,15 +33,43 @@ def procent_govna():
     lohh = (round(float(lohh), 3))
     labell2["text"] = lohh
 
+    huiii = str(float(entryll3.get()) - float((entryll4.get())))
+    huiii = str(round(float(huiii), 5))
+    lohhh = str(float(huiii) / float(entry2.get()) * 100)
+    lohhh = (round(float(lohhh), 3))
+    labelll2["text"] = lohhh
+
+    huiiii = str(float(entryllll3.get()) - float((entrylll4.get())))
+    huiiii = str(round(float(huiiii), 5))
+    lohhhh = str(float(huiiii) / float(entry2.get()) * 100)
+    lohhhh = (round(float(lohhhh), 3))
+    labellll2["text"] = lohhhh
+
+    huiiiii = str(float(entrylllll3.get()) - float((entryllll4.get())))
+    huiiiii = str(round(float(huiiiii), 5))
+    lohhhhh = str(float(huiiiii) / float(entry2.get()) * 100)
+    lohhhhh = (round(float(lohhhhh), 3))
+    labelllll2["text"] = lohhhhh
+
 
 root = Tk()
 root.title("Рассчет погрешности")
-root.geometry("768x1280")
+root.geometry("768x720")
 root.resizable(width=False, height=False)
 bg = PhotoImage(file="logo.png")
 img = Label(root, image=bg)
 img.place(x=0, y=0)
 current_date = date.today()
+
+field = Text(width=33, height=10)
+sb = Scrollbar(orient = VERTICAL, command = field.xview)
+sb.config(command = field.yview)
+field.config(yscrollcommand=sb.set)
+sb.pack( expand=FALSE, fill = Y)
+
+
+
+
 """
 tab_control = ttk.Notebook(root)
 
@@ -106,28 +131,66 @@ label = ttk.Label()
 label.pack(anchor=NW, padx=6, pady=6)
 
 lbl2 = Label(root, text="Оцифрованная точка")
-lbl2.pack(anchor=CENTER)
+lbl2.pack(anchor=NW)
 
 entry3 = ttk.Entry()
-entry3.pack(anchor=CENTER)
+entry3.pack(anchor=NW)
 
 lbl3 = Label(root, text="Показания эталона")
-lbl3.pack(anchor=CENTER)
+lbl3.pack(anchor=NW)
 
 entry4 = ttk.Entry()
-entry4.pack(anchor=CENTER)
+entry4.pack(anchor=NW)
 
 lbll2 = Label(root, text="Оцифрованная точка 2")
-lbll2.pack(anchor=CENTER)
+lbll2.pack(anchor=NW)
 
 entryl3 = ttk.Entry()
-entryl3.pack(anchor=CENTER)
+entryl3.pack(anchor=NW)
 
 lbll3 = Label(root, text="Показания эталона 2")
-lbll3.pack(anchor=CENTER)
+lbll3.pack(anchor=NW)
 
 entryl4 = ttk.Entry()
-entryl4.pack(anchor=CENTER)
+entryl4.pack(anchor=NW)
+
+lblll2 = Label(root, text="Оцифрованная точка 3")
+lblll2.pack(anchor=NW)
+
+entryll3 = ttk.Entry()
+entryll3.pack(anchor=NW)
+
+lblll3 = Label(root, text="Показания эталона 3")
+lblll3.pack(anchor=NW)
+
+entryll4 = ttk.Entry()
+entryll4.pack(anchor=NW)
+
+lbllll2 = Label(root, text="Оцифрованная точка 4")
+lbllll2.pack(anchor=NW)
+
+entryllll3 = ttk.Entry()
+entryllll3.pack(anchor=NW)
+
+lbllll3 = Label(root, text="Показания эталона 4")
+lbllll3.pack(anchor=NW)
+
+entrylll4 = ttk.Entry()
+entrylll4.pack(anchor=NW)
+
+lblllll2 = Label(root, text="Оцифрованная точка 5")
+lblllll2.pack(anchor=NW)
+
+entrylllll3 = ttk.Entry()
+entrylllll3.pack(anchor=NW)
+
+lblllll3 = Label(root, text="Показания эталона 5")
+lblllll3.pack(anchor=NW)
+
+entryllll4 = ttk.Entry()
+entryllll4.pack(anchor=NW)
+
+
 
 #btn = ttk.Button(text="Рассчет разности шага", command=ne_znaiu)
 #btn.pack(anchor=W, padx=6, pady=6)
@@ -139,6 +202,12 @@ label2 = ttk.Label()
 label2.pack(anchor=W, padx=6, pady=6)
 labell2 = ttk.Label()
 labell2.pack(anchor=NW, padx=6, pady=6)
+labelll2 = ttk.Label()
+labelll2.pack(anchor=NW, padx=6, pady=6)
+labellll2 = ttk.Label()
+labellll2.pack(anchor=NW, padx=6, pady=6)
+labelllll2 = ttk.Label()
+labelllll2.pack(anchor=NW, padx=6, pady=6)
 
 lbl4 = Label(root, text="Название манометра")
 lbl4.pack(anchor=NW, padx=6, pady=6)
