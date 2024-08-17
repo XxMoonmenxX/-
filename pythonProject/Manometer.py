@@ -55,80 +55,36 @@ def procent_govna():
 root = Tk()
 root.title("Рассчет погрешности")
 root.geometry("768x720")
-root.resizable(width=False, height=False)
+#root.resizable(width=False, height=False)
 bg = PhotoImage(file="logo.png")
 img = Label(root, image=bg)
 img.place(x=0, y=0)
 current_date = date.today()
 
-field = Text(width=33, height=10)
-sb = Scrollbar(orient = VERTICAL, command = field.xview)
-sb.config(command = field.yview)
-field.config(yscrollcommand=sb.set)
-sb.pack( expand=FALSE, fill = Y)
-
-
-
-
-"""
-tab_control = ttk.Notebook(root)
-
-vkladka1 = ttk.Frame(tab_control)
-vkladka2 = ttk.Frame(tab_control)
-
-tab_control.add(vkladka1, text='1')
-
-bg = PhotoImage(file="logo.png")
-
-img = Label(root, image=bg)
-img.place(x=0, y=0)
-
-tab_control.add(vkladka2, text='2')
-
-bg = PhotoImage(file="logo.png")
-
-img = Label(root, image=bg)
-img.place(x=0, y=0)
-
-lll = Label(vkladka1)
-lll.grid(column=0, row=3)
-
-lll1 = Label(vkladka2)
-lll1.grid(column=1, row=4)
-
-tab_control.pack(expand=1, fill='both')
-"""
-prikol1 = Menu(root)
-root.config(menu=prikol1)
-
-prikol2 = Menu(prikol1, tearoff=0)
-prikol2.add_command(label='Закрой')
-
-prikol1.add_cascade(label='Посмотри', menu=prikol2)
 
 lbl = Label(root, text="Класс точности")
-lbl.pack(anchor=NW, padx=6, pady=6)
+lbl.pack(anchor=NW)
 
 entry = ttk.Entry()
-entry.pack(anchor=NW, padx=6, pady=6)
+entry.pack(anchor=NW)
 
 lbl1 = Label(root, text="Диапазон")
-lbl1.pack(anchor=NW, padx=6, pady=6)
+lbl1.pack(anchor=NW)
 
 entry2 = ttk.Entry()
-entry2.pack(anchor=NW, padx=6, pady=6)
+entry2.pack(anchor=NW)
 
 lbl11 = Label(root, text="СИ")
-lbl11.pack(anchor=NW, padx=6, pady=6)
+lbl11.pack(anchor=NW)
 
 entry22 = ttk.Entry()
-entry22.pack(anchor=NW, padx=6, pady=6)
+entry22.pack(anchor=NW)
 
 btn = ttk.Button(text="Рассчет допустимой погрешности", command=absolutepog)
-btn.pack(anchor=NW, padx=6, pady=6)
+btn.pack(anchor=NW)
 
 label = ttk.Label()
-label.pack(anchor=NW, padx=6, pady=6)
+label.pack(anchor=NW)
 
 lbl2 = Label(root, text="Оцифрованная точка")
 lbl2.pack(anchor=NW)
@@ -196,30 +152,30 @@ entryllll4.pack(anchor=NW)
 #btn.pack(anchor=W, padx=6, pady=6)
 
 btn = ttk.Button(text="Рассчет % погрешности шага", command=procent_govna)
-btn.pack(anchor=W, padx=6, pady=6)
+btn.pack(anchor=W)
 
 label2 = ttk.Label()
-label2.pack(anchor=W, padx=6, pady=6)
+label2.pack(anchor=W)
 labell2 = ttk.Label()
-labell2.pack(anchor=NW, padx=6, pady=6)
+labell2.pack(anchor=NW)
 labelll2 = ttk.Label()
-labelll2.pack(anchor=NW, padx=6, pady=6)
+labelll2.pack(anchor=NW)
 labellll2 = ttk.Label()
-labellll2.pack(anchor=NW, padx=6, pady=6)
+labellll2.pack(anchor=NW)
 labelllll2 = ttk.Label()
-labelllll2.pack(anchor=NW, padx=6, pady=6)
+labelllll2.pack(anchor=NW)
 
 lbl4 = Label(root, text="Название манометра")
-lbl4.pack(anchor=NW, padx=6, pady=6)
+lbl4.pack(anchor=NW)
 
 entry5 = ttk.Entry()
-entry5.pack(anchor=NW, padx=6, pady=6)
+entry5.pack(anchor=NW)
 
 lbl5 = Label(root, text="Номер манометра")
-lbl5.pack(anchor=NW, padx=6, pady=6)
+lbl5.pack(anchor=NW)
 
 entry6 = ttk.Entry()
-entry6.pack(anchor=NW, padx=6, pady=6)
+entry6.pack(anchor=NW)
 
 
 
@@ -251,6 +207,7 @@ def centrtxt():
         ogm.append([current_date, name, number, kt, diap, k])
         omg.save(xl)
         omg.close()
+
         """rows = cur.fetchall()
          for row in rows:
          print(row)
@@ -259,7 +216,37 @@ def centrtxt():
 
 
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
-centrtext.pack(anchor=NW, padx=6, pady=6)
+centrtext.pack(anchor=NW)
+
+""""
+tab_control = ttk.Notebook(root)
+
+vkladka1 = ttk.Frame(tab_control)
+vkladka2 = ttk.Frame(tab_control)
+
+tab_control.add(vkladka1, text='1')
+
+bg = PhotoImage(file="logo.png")
+
+img = Label(root, image=bg)
+img.place(x=0, y=0)
+
+tab_control.add(vkladka2, text='2')
+
+bg = PhotoImage(file="logo.png")
+
+img = Label(root, image=bg)
+img.place(x=0, y=0)
+
+lll = Label(vkladka1)
+lll.grid(column=0, row=3)
+
+lll1 = Label(vkladka2)
+lll1.grid(column=1, row=4)
+
+tab_control.pack(expand=1, fill='both')
+"""""
+
 
 """def centrtxt2():
 cur.execute("SELECT * FROM `test`")
