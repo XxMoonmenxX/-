@@ -2,8 +2,6 @@ from tkinter import *
 from tkinter import ttk
 from openpyxl import load_workbook
 
-
-
 from datetime import date
 
 import sqlite3 as sql
@@ -12,13 +10,14 @@ con = sql.connect('test.txt')
 cur = con.cursor()
 soc = cur.fetchall()
 
+#https://selectel.ru/blog/tutorials/tkinter-library-in-python/ полезная инструкция
 
 def absolutepog():
     s = float(entry.get()) * float(entry2.get()) / 100
     label["text"] = s
 
+
 def procent_govna():
-    #ne_znaiu()
     hui = str(float(entry3.get()) - float((entry4.get())))
     hui = str(round(float(hui), 5))
     hui = str(float(entry3.get()) - float((entry4.get())))
@@ -60,13 +59,36 @@ def procent_govna():
 
 root = Tk()
 root.title("Рассчет погрешности")
-root.geometry("768x720")
+root.geometry("768x1280")
 #root.resizable(width=False, height=False)
 bg = PhotoImage(file="logo.png")
 img = Label(root, image=bg)
 img.place(x=0, y=0)
 current_date = date.today()
 
+tab_control = ttk.Notebook(root)
+
+vkladka1 = ttk.Frame(tab_control)
+vkladka2 = ttk.Frame(tab_control)
+
+vkladka1.pack(fill=BOTH, expand=True)
+vkladka2.pack(fill=BOTH, expand=True)
+
+tab_control.pack(expand=0, fill='both')
+
+
+
+tab_control.add(vkladka1, text='Данные манометра')
+
+
+
+tab_control.add(vkladka2, text='Рассчет погрешности')
+
+lbl = Label(root, text="Класс точности")
+lbl.pack(anchor=NW)
+
+entry = ttk.Entry()
+entry.pack(anchor=NW)
 
 lbl = Label(root, text="Класс точности")
 lbl.pack(anchor=NW)
@@ -164,7 +186,6 @@ lbllllll3.pack(anchor=NW)
 entrylllll4 = ttk.Entry()
 entrylllll4.pack(anchor=NW)
 
-
 #btn = ttk.Button(text="Рассчет разности шага", command=ne_znaiu)
 #btn.pack(anchor=W, padx=6, pady=6)
 
@@ -196,13 +217,14 @@ lbl5.pack(anchor=NW)
 entry6 = ttk.Entry()
 entry6.pack(anchor=NW)
 
-
-
-
-if  entry.get() < label2["text"] or entry.get() < labell2["text"] or entry.get() < labelll2["text"] or entry.get() < labellll2["text"] or entry.get() < labelllll2["text"] or entry.get() < labellllll2["text"]:
+if entry.get() < label2["text"] or entry.get() < labell2["text"] or entry.get() < labelll2["text"] or entry.get() < \
+        labellll2["text"] or entry.get() < labelllll2["text"] or entry.get() < labellllll2["text"]:
     k = 'Годен'
-elif entry.get() > label2["text"] or entry.get() > labell2["text"] or entry.get() > labelll2["text"] or entry.get() > labellll2["text"] or entry.get() > labelllll2["text"] or entry.get() < labellllll2["text"] :
+elif entry.get() > label2["text"] or entry.get() > labell2["text"] or entry.get() > labelll2["text"] or entry.get() > \
+        labellll2["text"] or entry.get() > labelllll2["text"] or entry.get() < labellllll2["text"]:
     k = 'Не годен'
+
+
 def centrtxt():
     with con:
         print('Данные внесены ')
@@ -236,45 +258,5 @@ def centrtxt():
 
 centrtext = ttk.Button(text="Внести данные", command=centrtxt)
 centrtext.pack(anchor=NW)
-
-""""
-tab_control = ttk.Notebook(root)
-
-vkladka1 = ttk.Frame(tab_control)
-vkladka2 = ttk.Frame(tab_control)
-
-tab_control.add(vkladka1, text='1')
-
-bg = PhotoImage(file="logo.png")
-
-img = Label(root, image=bg)
-img.place(x=0, y=0)
-
-tab_control.add(vkladka2, text='2')
-
-bg = PhotoImage(file="logo.png")
-
-img = Label(root, image=bg)
-img.place(x=0, y=0)
-
-lll = Label(vkladka1)
-lll.grid(column=0, row=3)
-
-lll1 = Label(vkladka2)
-lll1.grid(column=1, row=4)
-
-tab_control.pack(expand=1, fill='both')
-"""""
-
-
-"""def centrtxt2():
-cur.execute("SELECT * FROM `test`")
-res = cur.fetchall()
-for row in res:
-print(row)"""
-
-
-"""centrtext2 = ttk.Button(text="Вынести данные", command=centrtxt2)
-centrtext2.pack(anchor=NW, padx=6, pady=6)"""
 
 root.mainloop()
