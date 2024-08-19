@@ -51,6 +51,12 @@ def procent_govna():
     lohhhhh = (round(float(lohhhhh), 3))
     labelllll2["text"] = lohhhhh
 
+    huiiiiii = str(float(entryllllll3.get()) - float((entrylllll4.get())))
+    huiiiiii = str(round(float(huiiiiii), 5))
+    lohhhhhh = str(float(huiiiiii) / float(entry2.get()) * 100)
+    lohhhhhh = (round(float(lohhhhhh), 3))
+    labellllll2["text"] = lohhhhhh
+
 
 root = Tk()
 root.title("Рассчет погрешности")
@@ -146,6 +152,17 @@ lblllll3.pack(anchor=NW)
 entryllll4 = ttk.Entry()
 entryllll4.pack(anchor=NW)
 
+lbllllll2 = Label(root, text="Оцифрованная точка 6")
+lbllllll2.pack(anchor=NW)
+
+entryllllll3 = ttk.Entry()
+entryllllll3.pack(anchor=NW)
+
+lbllllll3 = Label(root, text="Показания эталона 6")
+lbllllll3.pack(anchor=NW)
+
+entrylllll4 = ttk.Entry()
+entrylllll4.pack(anchor=NW)
 
 
 #btn = ttk.Button(text="Рассчет разности шага", command=ne_znaiu)
@@ -164,6 +181,8 @@ labellll2 = ttk.Label()
 labellll2.pack(anchor=NW)
 labelllll2 = ttk.Label()
 labelllll2.pack(anchor=NW)
+labellllll2 = ttk.Label()
+labellllll2.pack(anchor=NW)
 
 lbl4 = Label(root, text="Название манометра")
 lbl4.pack(anchor=NW)
@@ -180,9 +199,9 @@ entry6.pack(anchor=NW)
 
 
 
-if  entry.get() < label2["text"] or entry.get() < labell2["text"] or entry.get() < labelll2["text"] or entry.get() < labellll2["text"] or entry.get() < labelllll2["text"] :
+if  entry.get() < label2["text"] or entry.get() < labell2["text"] or entry.get() < labelll2["text"] or entry.get() < labellll2["text"] or entry.get() < labelllll2["text"] or entry.get() < labellllll2["text"]:
     k = 'Годен'
-elif entry.get() > label2["text"] or entry.get() > labell2["text"] or entry.get() > labelll2["text"] or entry.get() > labellll2["text"] or entry.get() > labelllll2["text"]:
+elif entry.get() > label2["text"] or entry.get() > labell2["text"] or entry.get() > labelll2["text"] or entry.get() > labellll2["text"] or entry.get() > labelllll2["text"] or entry.get() < labellllll2["text"] :
     k = 'Не годен'
 def centrtxt():
     with con:
