@@ -134,37 +134,37 @@ img2.place(x=0, y=0)
 
 
 lb1 = ttk.Label(fr1, text="Название манометра")
-lb1.grid(column=0, row=0)
+lb1.grid(column=0, row=1)
 
 entry5 = ttk.Entry(fr1)
-entry5.grid(column=0, row=1)
+entry5.grid(column=0, row=2)
 
 lb1 = ttk.Label(fr1, text="Номер манометра")
-lb1.grid(column=0, row=2)
+lb1.grid(column=0, row=3)
 
 entry6 = ttk.Entry(fr1)
-entry6.grid(column=0, row=3)
+entry6.grid(column=0, row=4)
 
 lb1 = ttk.Label(fr1, text="Класс точности")
-lb1.grid(column=0, row=4)
+lb1.grid(column=0, row=5)
 
 entry = ttk.Entry(fr1)
-entry.grid(column=0, row=5)
+entry.grid(column=0, row=6)
 
 lb1 = ttk.Label(fr1, text="Диапазон")
-lb1.grid(column=0, row=6)
+lb1.grid(column=0, row=7)
 
 entry2 = ttk.Entry(fr1)
-entry2.grid(column=0, row=7)
+entry2.grid(column=0, row=8)
 
 lb1 = ttk.Label(fr1, text="Система измерения")
-lb1.grid(column=0, row=8)
-
-lb1 = ttk.Label(fr1)
 lb1.grid(column=0, row=9)
 
+lb1 = ttk.Label(fr1)
+lb1.grid(column=0, row=10)
+
 entry22 = ttk.Entry(fr1)
-entry22.grid(column=0, row=10)
+entry22.grid(column=0, row=11)
 
 
 
@@ -276,7 +276,7 @@ nb.add(fr1, text="Данные манометра")
 nb.add(fr2, text="Рассчет погрешности манометра")
 nb.add(fr3, text="Получение результата")
 
-nb.pack(fill="both", expand=1, padx=5, pady=5)
+nb.pack(fill="both", expand=1, padx=0, pady=0)
 nb.enable_traversal()
 
 nb.bind("<Button-3>", oncontextaction)
