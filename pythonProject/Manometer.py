@@ -84,11 +84,6 @@ tab_control.add(vkladka1, text='Данные манометра')
 
 tab_control.add(vkladka2, text='Рассчет погрешности')
 
-lbl = Label(root, text="Класс точности")
-lbl.pack(anchor=NW)
-
-entry = ttk.Entry()
-entry.pack(anchor=NW)
 
 lbl = Label(root, text="Класс точности")
 lbl.pack(anchor=NW)
