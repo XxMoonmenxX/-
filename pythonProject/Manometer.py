@@ -180,9 +180,9 @@ entry6.pack(anchor=NW)
 
 
 
-if  entry.get() < label2["text"]:
+if  entry.get() < label2["text"] or entry.get() < labell2["text"] or entry.get() < labelll2["text"] or entry.get() < labellll2["text"] or entry.get() < labelllll2["text"] :
     k = 'Годен'
-elif entry.get() > label2["text"]:
+elif entry.get() > label2["text"] or entry.get() > labell2["text"] or entry.get() > labelll2["text"] or entry.get() > labellll2["text"] or entry.get() > labelllll2["text"]:
     k = 'Не годен'
 def centrtxt():
     with con:
