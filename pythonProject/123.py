@@ -9,10 +9,14 @@ cur = con.cursor()
 soc = cur.fetchall()
 
 win = tk.Tk()
-win.geometry("768x1280")
+win.geometry("480x840")
 bg = tk.PhotoImage(file="logo.png")
 img = ttk.Label(win, image=bg)
 img.place(x=0, y=0)
+
+
+
+
 def oncontextaction(event):
     name_of_x_y = nb.identify(event.x, event.y)
     if name_of_x_y:
@@ -163,7 +167,15 @@ entry22 = ttk.Entry(fr1)
 entry22.grid(column=0, row=10)
 
 
-#lb2 = ttk.Label(fr2, text="Tab2")
+
+
+canvas = tk.Canvas(fr2, borderwidth=0, background="#ffffff")
+vsb = ttk.Scrollbar(fr2, orient="vertical", command=canvas.yview)
+canvas.configure(yscrollcommand=vsb.set)
+vsb.pack(side="right", fill="y")
+canvas.create_window((1, 12), window=fr2, anchor="nw")
+canvas.update_idletasks()
+canvas.configure(scrollregion=canvas.bbox("all"))
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка")
 lb2.pack(padx=5, pady=5)
@@ -269,13 +281,6 @@ nb.enable_traversal()
 
 nb.bind("<Button-3>", oncontextaction)
 
-if entry.get() < label["text"] or entry.get() < label2["text"] or entry.get() < label3["text"] or entry.get() < \
-        label4["text"] or entry.get() < label5["text"] or entry.get() < label6["text"]:
-    k = 'Годен'
-elif entry.get() > label["text"] or entry.get() > label2["text"] or entry.get() > label3["text"] or entry.get() > \
-        label4["text"] or entry.get() > label5["text"] or entry.get() < label6["text"]:
-    k = 'Не годен'
-
 def centrtxt():
     with con:
         print('Данные внесены ')
@@ -287,13 +292,43 @@ def centrtxt():
         huii = str(float(entry3.get()) - float((entry4.get())))
         huii = str(round(float(huii), 5))
         lohh = str(float(huii) / float(entry2.get()) * 100)
-        if entry.get() < label["text"] or entry.get() < label2["text"] or entry.get() < label3["text"] or entry.get() < \
-                label4["text"] or entry.get() < label5["text"] or entry.get() < label6["text"]:
-            k = 'Годен'
-        elif entry.get() > label["text"] or entry.get() > label2["text"] or entry.get() > label3[
-            "text"] or entry.get() > \
-                label4["text"] or entry.get() > label5["text"] or entry.get() < label6["text"]:
+
+        hui = str(float(entry3.get()) - float((entry4.get())))
+        hui = str(round(float(hui), 5))
+        hui = str(float(entry3.get()) - float((entry4.get())))
+        hui = str(round(float(hui), 5))
+        loh = str(float(hui) / float(entry2.get()) * 100)
+        loh = (round(float(loh), 3))
+
+        huii = str(float(entryl3.get()) - float((entryl4.get())))
+        huii = str(round(float(huii), 5))
+        lohh = str(float(huii) / float(entry2.get()) * 100)
+        lohh = (round(float(lohh), 3))
+
+        huiii = str(float(entryll3.get()) - float((entryll4.get())))
+        huiii = str(round(float(huiii), 5))
+        lohhh = str(float(huiii) / float(entry2.get()) * 100)
+        lohhh = (round(float(lohhh), 3))
+
+        huiiii = str(float(entryllll3.get()) - float((entrylll4.get())))
+        huiiii = str(round(float(huiiii), 5))
+        lohhhh = str(float(huiiii) / float(entry2.get()) * 100)
+        lohhhh = (round(float(lohhhh), 3))
+
+        huiiiii = str(float(entrylllll3.get()) - float((entryllll4.get())))
+        huiiiii = str(round(float(huiiiii), 5))
+        lohhhhh = str(float(huiiiii) / float(entry2.get()) * 100)
+        lohhhhh = (round(float(lohhhhh), 3))
+
+        huiiiiii = str(float(entryllllll3.get()) - float((entrylllll4.get())))
+        huiiiiii = str(round(float(huiiiiii), 5))
+        lohhhhhh = str(float(huiiiiii) / float(entry2.get()) * 100)
+        lohhhhhh = (round(float(lohhhhhh), 3))
+
+        if entry.get() < str(float(loh)) or entry.get() < str(float(lohh)) or entry.get() < str(float(lohhh)) or entry.get() < str(float(lohhhh)) or entry.get() < str(float(lohhhhh)) or entry.get() < str(float(lohhhhhh)):
             k = 'Не годен'
+        elif entry.get() > str(float(loh)) or entry.get() > str(float(lohh)) or entry.get() > str(float(lohhh)) or entry.get() > str(float(lohhhh)) or entry.get() > str(float(lohhhhh)) or entry.get() > str(float(lohhhhhh)):
+            k = 'Годен'
         print(k)
         # cur.execute(f"INSERT INTO `test` VALUES ('{name}', '{number}', '{kt}', '{diap}', '{k}' )")
         xl = 'Журнал.xlsx'
@@ -302,12 +337,6 @@ def centrtxt():
         ogm.append([current_date, name, number, kt, diap, k])
         omg.save(xl)
         omg.close()
-
-        """rows = cur.fetchall()
-         for row in rows:
-         print(row)
-         con.commit()
-         cur.close()"""
 
 btn = ttk.Button(fr3,text="Рассчет % погрешности шага", command=procent_govna)
 btn.pack(padx=5, pady=5)
