@@ -178,76 +178,76 @@ canvas.update_idletasks()
 canvas.configure(scrollregion=canvas.bbox("all"))
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entry3 = ttk.Entry(fr2)
-entry3.pack(padx=5, pady=5)
+entry3.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Показания эталона")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entry4 = ttk.Entry(fr2)
-entry4.pack(padx=5, pady=5)
+entry4.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка 2")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryl3 = ttk.Entry(fr2)
-entryl3.pack(padx=5, pady=5)
+entryl3.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Показания эталона 2")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryl4 = ttk.Entry(fr2)
-entryl4.pack(padx=5, pady=5)
+entryl4.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка 3")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryll3 = ttk.Entry(fr2)
-entryll3.pack(padx=5, pady=5)
+entryll3.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Показания эталона 3")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryll4 = ttk.Entry(fr2)
-entryll4.pack(padx=5, pady=5)
+entryll4.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка 4")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryllll3 = ttk.Entry(fr2)
-entryllll3.pack(padx=5, pady=5)
+entryllll3.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Показания эталона 4")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entrylll4 = ttk.Entry(fr2)
-entrylll4.pack(padx=5, pady=5)
+entrylll4.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка 5")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entrylllll3 = ttk.Entry(fr2)
-entrylllll3.pack(padx=5, pady=5)
+entrylllll3.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Показания эталона 5")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryllll4 = ttk.Entry(fr2)
-entryllll4.pack(padx=5, pady=5)
+entryllll4.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Оцифрованная точка 6")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entryllllll3 = ttk.Entry(fr2)
-entryllllll3.pack(padx=5, pady=5)
+entryllllll3.pack(padx=5, pady=3)
 
 lb2 = ttk.Label(fr2, text="Показания эталона 6")
-lb2.pack(padx=5, pady=5)
+lb2.pack(padx=5, pady=3)
 
 entrylllll4 = ttk.Entry(fr2)
-entrylllll4.pack(padx=5, pady=5)
+entrylllll4.pack(padx=5, pady=3)
 
 
 #lb3 = ttk.Label(fr3, text="Tab3")
@@ -276,7 +276,7 @@ nb.add(fr1, text="Данные манометра")
 nb.add(fr2, text="Рассчет погрешности манометра")
 nb.add(fr3, text="Получение результата")
 
-nb.pack(fill="both", expand=1, padx=5, pady=5)
+nb.pack(fill="both", expand=1, padx=0, pady=0)
 nb.enable_traversal()
 
 nb.bind("<Button-3>", oncontextaction)
