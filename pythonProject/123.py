@@ -134,41 +134,44 @@ img2.place(x=0, y=0)
 
 
 lb1 = ttk.Label(fr1, text="Название манометра")
-lb1.grid(column=0, row=1)
+lb1.pack(padx=5, pady=3)
 
 entry5 = ttk.Entry(fr1)
-entry5.grid(column=0, row=2)
+entry5.pack(padx=5, pady=3)
 
 lb1 = ttk.Label(fr1, text="Номер манометра")
-lb1.grid(column=0, row=3)
+lb1.pack(padx=5, pady=3)
 
 entry6 = ttk.Entry(fr1)
-entry6.grid(column=0, row=4)
+entry6.pack(padx=5, pady=3)
 
 lb1 = ttk.Label(fr1, text="Класс точности")
-lb1.grid(column=0, row=5)
+lb1.pack(padx=5, pady=3)
 
 entry = ttk.Entry(fr1)
-entry.grid(column=0, row=6)
+entry.pack(padx=5, pady=3)
 
 lb1 = ttk.Label(fr1, text="Диапазон")
-lb1.grid(column=0, row=7)
+lb1.pack(padx=5, pady=3)
 
 entry2 = ttk.Entry(fr1)
-entry2.grid(column=0, row=8)
+entry2.pack(padx=5, pady=3)
 
 lb1 = ttk.Label(fr1, text="Система измерения")
-lb1.grid(column=0, row=9)
-
-lb1 = ttk.Label(fr1)
-lb1.grid(column=0, row=10)
+lb1.pack(padx=5, pady=3)
 
 entry22 = ttk.Entry(fr1)
-entry22.grid(column=0, row=11)
+entry22.pack(padx=5, pady=3)
+
+lb1 = ttk.Label(fr1, text="ФИО калибровщика")
+lb1.pack(padx=5, pady=3)
+
+entryy22 = ttk.Entry(fr1)
+entryy22.pack(padx=5, pady=3)
 
 
 
-
+"""""
 canvas = tk.Canvas(fr2, borderwidth=0, background="#ffffff")
 vsb = ttk.Scrollbar(fr2, orient="vertical", command=canvas.yview)
 canvas.configure(yscrollcommand=vsb.set)
@@ -176,7 +179,7 @@ vsb.pack(side="right", fill="y")
 canvas.create_window((1, 12), window=fr2, anchor="nw")
 canvas.update_idletasks()
 canvas.configure(scrollregion=canvas.bbox("all"))
-
+"""
 lb2 = ttk.Label(fr2, text="Оцифрованная точка")
 lb2.pack(padx=5, pady=3)
 
@@ -265,7 +268,7 @@ label5.pack(padx=5, pady=5)
 label6 = ttk.Label(fr3,text=' 6 точка')
 label6.pack(padx=5, pady=5)
 
-lb1.grid(column=0, row=0)
+lb1.pack(padx=5, pady=3)
 lb2.pack(padx=5, pady=5)
 #lb3.pack(padx=5, pady=5)
 fr1.pack(padx=5, pady=5)
@@ -288,10 +291,9 @@ def centrtxt():
         name = entry5.get()
         number = str(entry6.get())
         kt = str(entry.get())
+        imya = str(entryy22.get())
         diap = str(entry2.get() + entry22.get())
-        huii = str(float(entry3.get()) - float((entry4.get())))
-        huii = str(round(float(huii), 5))
-        lohh = str(float(huii) / float(entry2.get()) * 100)
+
 
         hui = str(float(entry3.get()) - float((entry4.get())))
         hui = str(round(float(hui), 5))
@@ -334,7 +336,7 @@ def centrtxt():
         xl = 'Журнал.xlsx'
         omg = load_workbook(xl)
         ogm = omg['Лист1']
-        ogm.append([current_date, name, number, kt, diap, k])
+        ogm.append([current_date, name, number, kt, diap, k, imya])
         omg.save(xl)
         omg.close()
 
