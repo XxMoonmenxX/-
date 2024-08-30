@@ -15,8 +15,6 @@ img = ttk.Label(win, image=bg)
 img.place(x=0, y=0)
 
 
-
-
 def oncontextaction(event):
     name_of_x_y = nb.identify(event.x, event.y)
     if name_of_x_y:
@@ -30,6 +28,7 @@ def oncontextaction(event):
         if 342 <= x < 508:
             index = 2
             print(f'ПКМ:  {nb.tab(index)["text"]}; index = {index}')
+
 
 def absolutepog():
     s = float(entry.get()) * float(entry2.get()) / 100
@@ -114,8 +113,6 @@ style.configure('TFrame', background=color)"""
 
 nb = ttk.Notebook(win, width=300, height=300)
 
-
-
 fr1 = ttk.Frame(nb)
 fr2 = ttk.Frame(nb)
 fr3 = ttk.Frame(nb)
@@ -131,7 +128,6 @@ img1.place(x=0, y=0)
 bg2 = tk.PhotoImage(file="logo.png")
 img2 = ttk.Label(fr3, image=bg2)
 img2.place(x=0, y=0)
-
 
 lb1 = ttk.Label(fr1, text="Название манометра")
 lb1.pack(padx=5, pady=3)
@@ -168,8 +164,6 @@ lb1.pack(padx=5, pady=3)
 
 entryy22 = ttk.Entry(fr1)
 entryy22.pack(padx=5, pady=3)
-
-
 
 """""
 canvas = tk.Canvas(fr2, borderwidth=0, background="#ffffff")
@@ -252,20 +246,19 @@ lb2.pack(padx=5, pady=3)
 entrylllll4 = ttk.Entry(fr2)
 entrylllll4.pack(padx=5, pady=3)
 
-
 #lb3 = ttk.Label(fr3, text="Tab3")
 
 label = ttk.Label(fr3, text=' 1 точка')
 label.pack(padx=5, pady=5)
 label2 = ttk.Label(fr3, text=' 2 точка')
 label2.pack(padx=5, pady=5)
-label3 = ttk.Label(fr3,text=' 3 точка')
+label3 = ttk.Label(fr3, text=' 3 точка')
 label3.pack(padx=5, pady=5)
-label4 = ttk.Label(fr3,text=' 4 точка')
+label4 = ttk.Label(fr3, text=' 4 точка')
 label4.pack(padx=5, pady=5)
-label5 = ttk.Label(fr3,text=' 5 точка')
+label5 = ttk.Label(fr3, text=' 5 точка')
 label5.pack(padx=5, pady=5)
-label6 = ttk.Label(fr3,text=' 6 точка')
+label6 = ttk.Label(fr3, text=' 6 точка')
 label6.pack(padx=5, pady=5)
 
 lb1.pack(padx=5, pady=3)
@@ -284,6 +277,10 @@ nb.enable_traversal()
 
 nb.bind("<Button-3>", oncontextaction)
 
+
+
+
+
 def centrtxt():
     with con:
         print('Данные внесены ')
@@ -293,7 +290,6 @@ def centrtxt():
         kt = str(entry.get())
         imya = str(entryy22.get())
         diap = str(entry2.get() + entry22.get())
-
 
         hui = str(float(entry3.get()) - float((entry4.get())))
         hui = str(round(float(hui), 5))
@@ -327,11 +323,14 @@ def centrtxt():
         lohhhhhh = str(float(huiiiiii) / float(entry2.get()) * 100)
         lohhhhhh = (round(float(lohhhhhh), 3))
 
-        if entry.get() < str(float(loh)) or entry.get() < str(float(lohh)) or entry.get() < str(float(lohhh)) or entry.get() < str(float(lohhhh)) or entry.get() < str(float(lohhhhh)) or entry.get() < str(float(lohhhhhh)):
-            k = 'Не годен'
-        elif entry.get() > str(float(loh)) or entry.get() > str(float(lohh)) or entry.get() > str(float(lohhh)) or entry.get() > str(float(lohhhh)) or entry.get() > str(float(lohhhhh)) or entry.get() > str(float(lohhhhhh)):
+
+        if entry.get() >= str(float(loh)) and entry.get() >= str(float(lohh)) and entry.get() >= str(float(lohhh)) and entry.get() >= str(float(lohhhh)) and entry.get() >= str(float(lohhhhh)) and entry.get() >= str(float(lohhhhhh)):
             k = 'Годен'
-        print(k)
+        elif entry.get() <= str(float(loh)) and entry.get() <= str(float(lohh)) and entry.get() <= str(float(lohhh)) and entry.get() <= str(float(lohhhh)) and entry.get() <= str(float(lohhhhh)) and entry.get() <= str(float(lohhhhhh)):
+            k = 'Не годен'
+        else:
+            k = 'Не годен'
+
         # cur.execute(f"INSERT INTO `test` VALUES ('{name}', '{number}', '{kt}', '{diap}', '{k}' )")
         xl = 'Журнал.xlsx'
         omg = load_workbook(xl)
@@ -340,9 +339,13 @@ def centrtxt():
         omg.save(xl)
         omg.close()
 
-btn = ttk.Button(fr3,text="Рассчет % погрешности шага", command=procent_govna)
+
+
+
+
+btn = ttk.Button(fr3, text="Рассчет % погрешности шага", command=procent_govna)
 btn.pack(padx=5, pady=5)
-centrtext = ttk.Button(fr3,text="Внести данные", command=centrtxt)
+centrtext = ttk.Button(fr3, text="Внести данные", command=centrtxt)
 centrtext.pack()
 
 win.mainloop()
