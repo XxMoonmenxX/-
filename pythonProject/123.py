@@ -349,3 +349,4 @@ centrtext = ttk.Button(fr3, text="Внести данные", command=centrtxt)
 centrtext.pack()
 
 win.mainloop()
+#
