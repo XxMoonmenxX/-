@@ -14,7 +14,6 @@ bg = tk.PhotoImage(file="logo.png")
 img = ttk.Label(win, image=bg)
 img.place(x=0, y=0)
 
-
 def oncontextaction(event):
     name_of_x_y = nb.identify(event.x, event.y)
     if name_of_x_y:
@@ -32,7 +31,6 @@ def oncontextaction(event):
 
 def absolutepog():
     s = float(entry.get()) * float(entry2.get()) / 100
-
 
 def procent_govna():
     hui = str(float(entry3.get()) - float((entry4.get())))
