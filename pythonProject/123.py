@@ -125,7 +125,7 @@ def create_calibration_protocol():
         # Настройка стилей
         style = doc.styles['Normal']
         style.font.name = 'Times New Roman'
-        style.font.size = Pt(10)
+        style.font.size = Pt(8)
 
         # Заголовок
         title = doc.add_paragraph()
@@ -137,7 +137,7 @@ def create_calibration_protocol():
         title_run.bold = True
         title_run.font.size = Pt(12)
 
-        doc.add_paragraph("\n" + "=" * 136 + "\n")
+        doc.add_paragraph("\n" + "=" * 170 + "\n")
 
         # Информация о протоколе
         reg_num = doc.add_paragraph()
@@ -154,12 +154,13 @@ def create_calibration_protocol():
         doc.add_paragraph(
             f"Наименование, тип, модификация СИ: {entry5.get()}, заводской (серийный) номер № {entry6.get()}")
         doc.add_paragraph(
-            f"диапазон измерений: {entry2.get()} {entry22.get()}, пределы основной погрешности: {entry.get()}, "
+            f"диапазон измерений: 0-{entry2.get()} {entry22.get()}, пределы основной погрешности: {entry.get()}, "
             f"вид калибровки: периодическая")
 
         # Условия проведения
-        doc.add_paragraph("Условия проведения калибровки: температура 20°С; атмосферное давление 760 мм рт.ст., "
-                          "относительная влажность 60%.")
+        doc.add_paragraph(f"Условия проведения калибровки: температура {entry_temp.get()}°С; "
+                          f"атмосферное давление {entry_pressure.get()} мм рт.ст., "
+                          f"относительная влажность {entry_humidity.get()}%.")
 
         # Методика калибровки
         doc.add_paragraph("В соответствии с: МК 30-0007-2023")
@@ -183,7 +184,7 @@ def create_calibration_protocol():
         hdr_cells = table.rows[0].cells
 
         # 1. "Калибруемые точки" (вертикальное объединение 2 строк)
-        hdr_cells[0].text = "Калибруемые точки (показания СИ)"
+        hdr_cells[0].text = "Калибруемые точки диапазона"
         table.cell(0, 0).merge(table.cell(1, 0))
 
         # 2. "Значение контролируемого параметра при прямом ходе" (ячейки 1-2)
@@ -202,11 +203,11 @@ def create_calibration_protocol():
         sub_hdr = table.rows[1].cells
 
         # Подписи для колонок
-        sub_hdr[1].text = "Показания средств измерений"
-        sub_hdr[2].text = "Показания калибруемого СИ"
+        sub_hdr[1].text = "Показания калибруемого СИ"
+        sub_hdr[2].text = "Показания средств калибровки"
 
-        sub_hdr[3].text = "Показания средств измерений"
-        sub_hdr[4].text = "Показания калибруемого СИ"
+        sub_hdr[3].text = "Показания калибруемого СИ"
+        sub_hdr[4].text = "Показания средств калибровки"
 
         # Подписи для столбцов погрешности
         sub_hdr[5].text = "Прямой ход"
@@ -215,7 +216,7 @@ def create_calibration_protocol():
         sub_hdr[8].text = "Допустимая погрешность"
 
         # Центрируем весь текст в заголовках
-        for row in table.rows[:2]:
+        for row in table.rows[:9]:
             for cell in row.cells:
                 for paragraph in cell.paragraphs:
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -252,12 +253,19 @@ def create_calibration_protocol():
             (safe_get(entryllll3_rev.get()), safe_get(entryllll4_rev.get()), safe_get(label5_rev["text"]))
         ]
 
+        # Проверяем, соответствует ли манометр требованиям
+        max_allowed_error = float(entry.get())
+        passed = True  # Флаг соответствия требованиям
+
+        # Список всех погрешностей для проверки
+        all_errors = []
+
         # Заполняем данные по точкам
         for i in range(5):
             row_cells = table.add_row().cells
 
             # Вместо "Точка N" используем показания калибруемого СИ при прямом ходе
-            row_cells[0].text = direct_readings[i]
+            row_cells[0].text = points_reverse[i][0]
 
             # Прямой ход
             row_cells[1].text = points_direct[i][0]  # Эталон
@@ -268,7 +276,9 @@ def create_calibration_protocol():
             row_cells[4].text = points_reverse[i][1]  # СИ
 
             # Погрешность прямого хода
+            direct_error = float(points_direct[i][2])
             row_cells[5].text = points_direct[i][2]  # Погрешность прямого хода
+            all_errors.append(direct_error)
 
             # Погрешность обратного хода
             rev_error = ""
@@ -282,7 +292,10 @@ def create_calibration_protocol():
                 rev_error = safe_get(label4_rev["text"])
             else:
                 rev_error = safe_get(label5_rev["text"])
+
+            rev_error_value = float(rev_error)
             row_cells[6].text = rev_error
+            all_errors.append(rev_error_value)
 
             # Вариация (разница между прямым и обратным ходом)
             variation = abs(float(points_direct[i][1]) - float(points_reverse[i][1]))
@@ -291,13 +304,23 @@ def create_calibration_protocol():
             # Допустимая погрешность (одинаковая для всех строк)
             row_cells[8].text = entry.get()
 
+        # Проверяем все погрешности
+        for error in all_errors:
+            if abs(error) > max_allowed_error:
+                passed = False
+                break
+
         # Объединяем ячейки "Допустимая погрешность" по вертикали
         for i in range(2, 7):  # Объединяем со 2 по 6 строку (индексы 1-5)
             table.cell(2, 8).merge(table.cell(i, 8))
 
-        # Заключение
-        doc.add_paragraph("\nЗаключение: Манометр соответствует/не соответствует (нужное подчеркнуть) "
-                          "предъявляемым к нему метрологическим требованиям")
+        # Заключение на основе проверки
+        if passed:
+            conclusion_text = "Заключение: Годен"
+        else:
+            conclusion_text = "Заключение: Не годен"
+
+        doc.add_paragraph("\n" + conclusion_text)
         doc.add_paragraph(f"Калибровщик: {entryy22.get()}")
 
         # Сохранение
@@ -452,6 +475,24 @@ lb1.pack(padx=5, pady=3)
 entryy22 = ttk.Entry(fr1)
 entryy22.pack(padx=5, pady=3)
 
+lb1 = ttk.Label(fr1, text="Температура (°C)")
+lb1.pack(padx=5, pady=3)
+entry_temp = ttk.Entry(fr1)
+entry_temp.insert(0, "20")  # Значение по умолчанию
+entry_temp.pack(padx=5, pady=3)
+
+lb1 = ttk.Label(fr1, text="Атмосферное давление (мм рт.ст.)")
+lb1.pack(padx=5, pady=3)
+entry_pressure = ttk.Entry(fr1)
+entry_pressure.insert(0, "760")  # Значение по умолчанию
+entry_pressure.pack(padx=5, pady=3)
+
+lb1 = ttk.Label(fr1, text="Относительная влажность (%)")
+lb1.pack(padx=5, pady=3)
+entry_humidity = ttk.Entry(fr1)
+entry_humidity.insert(0, "60")  # Значение по умолчанию
+entry_humidity.pack(padx=5, pady=3)
+
 # Вкладка 2 - Рассчет погрешности (переработанная версия с двумя колонками)
 bg1 = tk.PhotoImage(file="logo.png")
 img1 = ttk.Label(fr2, image=bg1)
@@ -549,6 +590,100 @@ entryllll3_rev.pack(padx=5, pady=3)
 ttk.Label(frame_right, text="Показания эталона 5").pack(padx=5, pady=3)
 entryllll4_rev = ttk.Entry(frame_right)
 entryllll4_rev.pack(padx=5, pady=3)
+
+fill_readings_btn = ttk.Button(frame_left, text="Заполнить показания", command=lambda: fill_readings())
+fill_readings_btn.pack(padx=5, pady=10)
+
+
+# Новая функция для автоматического заполнения показаний
+def fill_readings():
+    try:
+        # Получаем погрешность и диапазон из полей ввода
+        error = float(entry.get())
+        range_val = float(entry2.get())
+
+        # Вычисляем шаг для оцифрованных точек (5 точек равномерно по диапазону)
+        step = range_val / 5
+
+        # Заполняем оцифрованные точки для прямого хода
+        entry3.delete(0, tk.END)
+        entry3.insert(0, str(round(step * 1, 3)))
+        entryl3.delete(0, tk.END)
+        entryl3.insert(0, str(round(step * 2, 3)))
+        entryll3.delete(0, tk.END)
+        entryll3.insert(0, str(round(step * 3, 3)))
+        entrylll3.delete(0, tk.END)
+        entrylll3.insert(0, str(round(step * 4, 3)))
+        entryllll3.delete(0, tk.END)
+        entryllll3.insert(0, str(round(step * 5, 3)))
+
+        # Заполняем оцифрованные точки для обратного хода
+        entry3_rev.delete(0, tk.END)
+        entry3_rev.insert(0, str(round(step * 1, 3)))
+        entryl3_rev.delete(0, tk.END)
+        entryl3_rev.insert(0, str(round(step * 2, 3)))
+        entryll3_rev.delete(0, tk.END)
+        entryll3_rev.insert(0, str(round(step * 3, 3)))
+        entrylll3_rev.delete(0, tk.END)
+        entrylll3_rev.insert(0, str(round(step * 4, 3)))
+        entryllll3_rev.delete(0, tk.END)
+        entryllll3_rev.insert(0, str(round(step * 5, 3)))
+
+        # Функция для генерации случайного значения в пределах погрешности
+        def get_random_value(base_value, error_percent):
+            error_amount = base_value * error_percent / 100
+            min_val = base_value - error_amount
+            max_val = base_value + error_amount
+            return round(random.uniform(min_val, max_val), 3)
+
+        import random  # Добавляем в начало файла
+
+        # Заполняем показания эталона для прямого хода (в пределах погрешности)
+        base_val = float(entry3.get())
+        entry4.delete(0, tk.END)
+        entry4.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entryl3.get())
+        entryl4.delete(0, tk.END)
+        entryl4.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entryll3.get())
+        entryll4.delete(0, tk.END)
+        entryll4.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entrylll3.get())
+        entrylll4.delete(0, tk.END)
+        entrylll4.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entryllll3.get())
+        entryllll4.delete(0, tk.END)
+        entryllll4.insert(0, str(get_random_value(base_val, error)))
+
+        # Заполняем показания эталона для обратного хода (в пределах погрешности)
+        base_val = float(entry3_rev.get())
+        entry4_rev.delete(0, tk.END)
+        entry4_rev.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entryl3_rev.get())
+        entryl4_rev.delete(0, tk.END)
+        entryl4_rev.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entryll3_rev.get())
+        entryll4_rev.delete(0, tk.END)
+        entryll4_rev.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entrylll3_rev.get())
+        entrylll4_rev.delete(0, tk.END)
+        entrylll4_rev.insert(0, str(get_random_value(base_val, error)))
+
+        base_val = float(entryllll3_rev.get())
+        entryllll4_rev.delete(0, tk.END)
+        entryllll4_rev.insert(0, str(get_random_value(base_val, error)))
+
+        messagebox.showinfo("Успех", "Показания успешно заполнены автоматически")
+
+    except Exception as e:
+        messagebox.showerror("Ошибка", f"Ошибка при заполнении показаний: {str(e)}")
 
 # Вкладка 3 - Результаты
 bg2 = tk.PhotoImage(file="logo.png")
